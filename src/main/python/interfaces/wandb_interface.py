@@ -22,6 +22,7 @@ class PyIWandB(object):
         return res
 
     def init(
+        self,
         job_type,
         dir,
         config,

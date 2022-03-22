@@ -28,7 +28,7 @@ class WandB(outputFile: String = null) {
     val wandbPython = 
         outputFile match { 
             case null => new ProcessBuilder().inheritIO().command(args).start()
-            case _ => new ProcessBuilder().redirectOutput(new File(outputFile)).command(args).start()
+            case _ => new ProcessBuilder().redirectOutput(new File(outputFile)).redirectErrorStream(true).command(args).start()
         }
     val clientServer: ClientServer = new ClientServer(null)
     // val clientServer: ClientServer = new ClientServer(port, address, pythonPort, pythonAddress, connectTimeout, readTimeout, null, null, null) 

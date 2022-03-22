@@ -25,7 +25,7 @@ public interface IWandB {
                         String group, String name, String notes, 
                         Map<String, Object> magic, List<String> configExcludeKeys, List<String> configIncludeKeys,
                         String anonymous, String mode, Boolean allowValChange, 
-                        Boolean resume, Boolean forece, Object tensorboard, Object syncTensorboard, Object monitorGym, Object saveCode, 
+                        Boolean resume, Boolean force, Object tensorboard, Object syncTensorboard, Object monitorGym, Object saveCode, 
                         String id, Map<String, Object> settings);
     public Boolean finish();
     

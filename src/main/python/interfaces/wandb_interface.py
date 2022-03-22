@@ -2,7 +2,12 @@ import logging
 from py4j.clientserver import ClientServer, JavaParameters, PythonParameters
 import wandb
 import sys
+import logging
 
+# logger = logging.getLogger("WandB Debugging")
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel("DEBUG")
+# logger.debug("testing debuger")
 
 class PyIWandB(object):
     def __init__(self):
@@ -40,7 +45,7 @@ class PyIWandB(object):
         mode,
         allowValChange,
         resume,
-        forece,
+        force,
         tensorboard,
         syncTensorboard,
         monitorGym,
@@ -49,30 +54,30 @@ class PyIWandB(object):
         settings,
     ):
         run = wandb.init(
-            job_type,
-            dir,
-            config,
-            project,
-            entity,
-            reinit,
-            tags,
-            group,
-            name,
-            notes,
-            magic,
-            configExcludeKeys,
-            configIncludeKeys,
-            anonymous,
-            mode,
-            allowValChange,
-            resume,
-            forece,
-            tensorboard,
-            syncTensorboard,
-            monitorGym,
-            saveCode,
-            id,
-            settings,
+            job_type = job_type,
+            dir = dir, 
+            config = dict(config) if config is not None else config,
+            project = project,
+            entity = entity,
+            reinit = reinit,
+            tags = list(tags) if tags is not None else tags,
+            group = group,
+            name = name,
+            notes = notes,
+            magic = magic,
+            config_exclude_keys = configExcludeKeys, 
+            config_include_keys = configIncludeKeys, 
+            anonymous = anonymous,
+            mode = mode,
+            allow_val_change = allowValChange,
+            resume = resume,
+            force = force,
+            tensorboard = tensorboard, 
+            sync_tensorboard = syncTensorboard, 
+            monitor_gym = monitorGym, 
+            save_code = saveCode, 
+            id = id, 
+            settings = settings
         )
         self.active_run = run
         return True

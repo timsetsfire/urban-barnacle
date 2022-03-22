@@ -6,10 +6,11 @@ import java.lang.ProcessBuilder;
 import collection.JavaConverters._
 import java.net.ServerSocket
 // import scala.util.{Using, Try}
+import java.io.File
 import java.net.InetAddress;
 import scala.collection.JavaConverters._
 
-class WandB {
+class WandB(outputFile: String = null) {
     
     import WandB._   
 
@@ -24,7 +25,11 @@ class WandB {
 
     val args = List("start_wandb_gateway", "--java-address", address.getHostAddress, "--java-port", port.toString, "--python-address", pythonAddress.getHostAddress, "--python-port", pythonPort.toString).asJava
 
-    val wandbPython = new ProcessBuilder().inheritIO().command(args).start()
+    val wandbPython = 
+        outputFile match { 
+            case null => new ProcessBuilder().inheritIO().command(args).start()
+            case _ => new ProcessBuilder().redirectOutput(new File(outputFile)).command(args).start()
+        }
     val clientServer: ClientServer = new ClientServer(null)
     // val clientServer: ClientServer = new ClientServer(port, address, pythonPort, pythonAddress, connectTimeout, readTimeout, null, null, null) 
     val interface: IWandB = clientServer.getPythonServerEntryPoint( Array[Class[_]]( classOf[IWandB])).asInstanceOf[IWandB]
